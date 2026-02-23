@@ -17,6 +17,7 @@ import {
   plasma,
   plasmaTestnet,
   polygon,
+  soneium,
 } from "viem/chains";
 import {
   type EnableSessionDetails,
@@ -50,17 +51,17 @@ if (!depositProcessorUrl) {
 
 // Configure chains
 // const targetChain = isTestnet ? plasmaTestnet : plasma;
-const targetChain = base;
+const targetChain = soneium;
 const sourceChains = isTestnet
   ? [baseSepolia, optimismSepolia, arbitrumSepolia]
-  : [mainnet, base, optimism, arbitrum, polygon, bsc];
+  : [mainnet, base, optimism, arbitrum, bsc];
 
 // Token on the target chain
 // const targetToken = isTestnet
 //   ? "0x502012b361aebce43b26ec812b74d9a51db4d412"
 //   : "0xb8ce59fc3717ada4c02eadf9682a9e934f625ebb";
 
-const targetToken = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
+const targetToken = "0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369"; // USDC.E
 
 // Create account config with sessions enabled
 const config: RhinestoneAccountConfig = {
@@ -78,6 +79,13 @@ const config: RhinestoneAccountConfig = {
 
 const rhinestone = new RhinestoneSDK({
   apiKey: rhinestoneApiKey,
+  // provider: {
+  //   type: 'custom',
+  //   urls: {
+  //     137: 'https://polygon-mainnet.gateway.tatum.io',
+  //     1868: 'https://soneium.drpc.org',
+  //   },
+  // },
 });
 const account = await rhinestone.createAccount(config);
 const { factory, factoryData } = account.getInitData();
