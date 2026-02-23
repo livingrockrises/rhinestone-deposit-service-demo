@@ -23,7 +23,7 @@ import {
   getSessionDetails,
   isTestnet,
   signerAccount,
-} from "./common.ts";
+} from "./common";
 
 interface AccountInput {
   address: Address;

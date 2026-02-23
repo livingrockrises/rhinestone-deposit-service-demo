@@ -2,7 +2,7 @@ import "dotenv/config";
 import { type RhinestoneAccountConfig, RhinestoneSDK } from "@rhinestone/sdk";
 import type { Chain } from "viem";
 import { polygon, polygonAmoy } from "viem/chains";
-import { getSessionDetails, isTestnet, signerAccount } from "./common.ts";
+import { getSessionDetails, isTestnet, signerAccount } from "./common";
 
 const rhinestoneApiKey = process.env.RHINESTONE_API_KEY;
 if (!rhinestoneApiKey) {
