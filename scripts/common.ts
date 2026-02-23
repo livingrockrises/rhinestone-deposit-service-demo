@@ -1,3 +1,4 @@
+import "dotenv/config";
 import {
   type RhinestoneAccount,
   type RhinestoneAccountConfig,
@@ -6,7 +7,6 @@ import {
 } from "@rhinestone/sdk";
 import { toViewOnlyAccount } from "@rhinestone/sdk/utils";
 import {
-  http,
   type Chain,
   type Hex,
   createPublicClient,
@@ -15,6 +15,7 @@ import {
   erc20Abi,
   formatEther,
   formatUnits,
+  http,
   parseEther,
   parseUnits,
 } from "viem";
@@ -45,7 +46,7 @@ const rhinestoneSignerAddress = process.env
 if (!rhinestoneSignerAddress) {
   throw new Error("RHINESTONE_SIGNER_ADDRESS is not set");
 }
-const rhinestoneApiKey = process.env.RHINESTONE_API_KEY as string;
+const rhinestoneApiKey = process.env.RHINESTONE_API_KEY!;
 if (!rhinestoneApiKey) {
   throw new Error("RHINESTONE_API_KEY is not set");
 }

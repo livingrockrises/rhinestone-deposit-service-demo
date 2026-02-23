@@ -10,7 +10,9 @@
     "typescript": "^5"
   },
   "dependencies": {
-    "@rhinestone/sdk": "^1.2.12",
+    "@hono/node-server": "^1.19.9",
+    "@rhinestone/sdk": "^1.2.14",
+    "dotenv": "^17.3.1",
     "hono": "^4.10.7",
     "viem": "^2.45.3"
   }

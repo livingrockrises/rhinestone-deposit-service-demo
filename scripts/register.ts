@@ -1,3 +1,4 @@
+import "dotenv/config";
 import {
   type RhinestoneAccountConfig,
   RhinestoneSDK,
@@ -22,7 +23,7 @@ import {
   getSessionDetails,
   isTestnet,
   signerAccount,
-} from "./common";
+} from "./common.ts";
 
 interface AccountInput {
   address: Address;
@@ -48,15 +49,18 @@ if (!depositProcessorUrl) {
 }
 
 // Configure chains
-const targetChain = isTestnet ? plasmaTestnet : plasma;
+// const targetChain = isTestnet ? plasmaTestnet : plasma;
+const targetChain = base;
 const sourceChains = isTestnet
   ? [baseSepolia, optimismSepolia, arbitrumSepolia]
   : [mainnet, base, optimism, arbitrum, polygon, bsc];
 
 // Token on the target chain
-const targetToken = isTestnet
-  ? "0x502012b361aebce43b26ec812b74d9a51db4d412"
-  : "0xb8ce59fc3717ada4c02eadf9682a9e934f625ebb";
+// const targetToken = isTestnet
+//   ? "0x502012b361aebce43b26ec812b74d9a51db4d412"
+//   : "0xb8ce59fc3717ada4c02eadf9682a9e934f625ebb";
+
+const targetToken = "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913";
 
 // Create account config with sessions enabled
 const config: RhinestoneAccountConfig = {

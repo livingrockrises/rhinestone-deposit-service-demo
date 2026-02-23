@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { base, baseSepolia, optimism } from "viem/chains";
 
 const rhinestoneApiKey = process.env.RHINESTONE_API_KEY;

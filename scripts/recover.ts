@@ -1,7 +1,7 @@
 import { RhinestoneSDK, type RhinestoneAccountConfig } from "@rhinestone/sdk";
 import { isOrchestratorError } from "@rhinestone/sdk/errors";
 import { base } from "viem/chains";
-import { signerAccount, fundingAddress } from "./common";
+import { signerAccount, fundingAddress } from "./common.ts";
 import { encodeFunctionData, erc20Abi } from "viem";
 import type { OrchestratorError } from "@rhinestone/sdk/dist/src/orchestrator";
 
@@ -34,6 +34,7 @@ const receiver = fundingAddress;
 
 try {
   console.log(account.getAddress());
+  // Todo: check Property 'getMaxSpendableAmount' does not exist on type 'RhinestoneAccount'.
   const maxAmount = await account.getMaxSpendableAmount(chain, token, 50_000n);
   console.log(maxAmount);
   // const maxAmount = 1_000_000n;

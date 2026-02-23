@@ -1,7 +1,8 @@
+import "dotenv/config";
 import { type RhinestoneAccountConfig, RhinestoneSDK } from "@rhinestone/sdk";
 import type { Chain } from "viem";
 import { polygon, polygonAmoy } from "viem/chains";
-import { getSessionDetails, isTestnet, signerAccount } from "./common";
+import { getSessionDetails, isTestnet, signerAccount } from "./common.ts";
 
 const rhinestoneApiKey = process.env.RHINESTONE_API_KEY;
 if (!rhinestoneApiKey) {
@@ -31,7 +32,7 @@ const config: RhinestoneAccountConfig = {
   },
 };
 
-const rhinestone = new RhinestoneSDK();
+const rhinestone = new RhinestoneSDK({ apiKey: rhinestoneApiKey });
 const account = await rhinestone.createAccount(config);
 const address = account.getAddress();
 

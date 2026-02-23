@@ -1,5 +1,5 @@
 import type { RhinestoneAccountConfig } from "@rhinestone/sdk";
-import { getAccount, signerAccount } from "./common";
+import { getAccount, signerAccount } from "./common.ts";
 
 const depositProcessorUrl = process.env.DEPOSIT_PROCESSOR_URL;
 
