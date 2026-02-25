@@ -295,6 +295,7 @@ async function getSessionDetails(
     await rhinestoneAccount.experimental_getSessionDetails(sessions);
   const enableSignature =
     await rhinestoneAccount.experimental_signEnableSession(sessionDetails);
+  console.log(enableSignature);
   return {
     hashesAndChainIds: sessionDetails.hashesAndChainIds,
     signature: enableSignature,
