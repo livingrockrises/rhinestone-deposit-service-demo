@@ -21,7 +21,7 @@ const newChains: Chain[] = isTestnet
 // Recreate the account config (must match the registered account)
 const config: RhinestoneAccountConfig = {
   account: {
-    type: "nexus",
+    type: "startale",
   },
   owners: {
     type: "ecdsa",

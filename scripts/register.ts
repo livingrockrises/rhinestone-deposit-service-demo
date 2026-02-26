@@ -66,7 +66,7 @@ const targetToken = "0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369"; // USDC.E
 // Create account config with sessions enabled
 const config: RhinestoneAccountConfig = {
   account: {
-    type: "nexus",
+    type: "startale",
   },
   owners: {
     type: "ecdsa",

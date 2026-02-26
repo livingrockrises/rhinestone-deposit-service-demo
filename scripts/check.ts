@@ -5,7 +5,7 @@ const depositProcessorUrl = process.env.DEPOSIT_PROCESSOR_URL;
 
 const config: RhinestoneAccountConfig = {
   account: {
-    type: "nexus",
+    type: "startale",
   },
   owners: {
     type: "ecdsa",

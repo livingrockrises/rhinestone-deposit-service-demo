@@ -5,7 +5,7 @@ import { parseUnits } from "viem";
 
 const config: RhinestoneAccountConfig = {
   account: {
-    type: "nexus",
+    type: "startale",
   },
   owners: {
     type: "ecdsa",
