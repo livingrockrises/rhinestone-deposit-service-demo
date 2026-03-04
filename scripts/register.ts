@@ -24,6 +24,7 @@ import {
   getSessionDetails,
   isTestnet,
   signerAccount,
+  toEip155ChainId,
 } from "./common";
 
 interface AccountInput {
@@ -34,7 +35,7 @@ interface AccountInput {
     sessionDetails: EnableSessionDetails;
   };
   target: {
-    chain: number;
+    chain: string; // eip155:chainId format
     token: Address | TokenSymbol;
     recipient?: Address;
   };
@@ -115,7 +116,7 @@ const accountInput: AccountInput = {
     sessionDetails,
   },
   target: {
-    chain: targetChain.id,
+    chain: toEip155ChainId(targetChain.id),
     token: targetToken,
     // Optional: custom recipient address
     // recipient: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",

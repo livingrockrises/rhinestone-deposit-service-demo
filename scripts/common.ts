@@ -53,6 +53,11 @@ if (!rhinestoneApiKey) {
 
 const isTestnet = process.env.USE_TESTNETS === "true";
 
+/** Format numeric chain id for APIs that expect CAIP-2 chain id (e.g. 'eip155:8453'). */
+export function toEip155ChainId(chainId: number): string {
+  return `eip155:${chainId}`;
+}
+
 // User account (root owner)
 const signerAccount = privateKeyToAccount(ownerPrivateKey);
 
