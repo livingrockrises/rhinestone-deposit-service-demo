@@ -26,6 +26,7 @@ import {
   signerAccount,
   toEip155ChainId,
 } from "./common";
+import { experimental_getRhinestoneInitData } from "@rhinestone/sdk/utils";
 
 interface AccountInput {
   address: Address;
@@ -55,7 +56,7 @@ if (!depositProcessorUrl) {
 const targetChain = soneium;
 const sourceChains = isTestnet
   ? [baseSepolia, optimismSepolia, arbitrumSepolia]
-  : [mainnet, base, optimism, arbitrum, bsc];
+  : [optimism];
 
 // Token on the target chain
 // const targetToken = isTestnet
@@ -66,6 +67,21 @@ const targetToken = "0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369"; // USDC.E
 
 console.log("signer account address", signerAccount.address);
 
+// const initData = experimental_getRhinestoneInitData({
+//   account: {
+//     type: "startale",
+//   },
+//   owners: {
+//     type: "ecdsa",
+//     accounts: [signerAccount],
+//     module: '0x00000072f286204bb934ed49d8969e86f7dec7b1',
+//   },
+//   // experimental_sessions: {
+//   //   enabled: true,
+//   // },
+// });
+// console.log("initData for startale account according to Rhinestone", initData);
+
 // Create account config with sessions enabled
 const config: RhinestoneAccountConfig = {
   account: {
@@ -74,7 +90,14 @@ const config: RhinestoneAccountConfig = {
   owners: {
     type: "ecdsa",
     accounts: [signerAccount],
+    // module: '0x00000072f286204bb934ed49d8969e86f7dec7b1',
   },
+  // initData: {
+  //   address: '0x5578FB0b52AC0C0E6cb3b19B299bf3E592a49f86',
+  //   factory: '0x0000003b3e7b530b4f981ae80d9350392defef90',  
+  //   factoryData: '0xea6d13ac000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000280000000000000000000000000000000552a5fae3db7a8f3917c435448f49ba6a9000000000000000000000000000000000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000002045888596b00000000000000000000000000000000000000000000000000000000000000c000000000000000000000000000000000000000000000000000000000000001000000000000000000000000000000000000000000000000000000000000000120000000000000000000000000000000000000000000000000000000000000014000000000000000000000000000000000000000000000000000000000000001c000000000000000000000000000000000000000000000000000000000000001e00000000000000000000000000000000000000000000000000000000000000014af02fb42343a67badd074e917321964aec010c320000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000002000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000',
+  //   intentExecutorInstalled: true,
+  // },
   experimental_sessions: {
     enabled: true,
   },
@@ -82,13 +105,6 @@ const config: RhinestoneAccountConfig = {
 
 const rhinestone = new RhinestoneSDK({
   apiKey: rhinestoneApiKey,
-  // provider: {
-  //   type: 'custom',
-  //   urls: {
-  //     137: 'https://polygon-mainnet.gateway.tatum.io',
-  //     1868: 'https://soneium.drpc.org',
-  //   },
-  // },
 });
 const account = await rhinestone.createAccount(config);
 const { factory, factoryData } = account.getInitData();
@@ -97,7 +113,7 @@ const address = account.getAddress();
 console.log(`Account address: ${address}`);
 
 // Get all unique chains (source chains + target chain)
-const allChains = [...new Set([...sourceChains, targetChain])];
+const allChains = [...new Set([...sourceChains])];
 console.log(
   `Preparing session details for chains: ${allChains.map((c) => c.name).join(", ")}`,
 );
