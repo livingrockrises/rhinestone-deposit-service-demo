@@ -31,10 +31,16 @@ interface AccountInput {
   accountParams: {
     factory: Address;
     factoryData: Hex;
-    sessionDetails: EnableSessionDetails;
+    sessionDetails: {
+      hashesAndChainIds: {
+        chainId: number;
+        sessionDigest: Hex;
+      }[];
+      signature: Hex;
+    };
   };
   target: {
-    chain: number;
+    chain: string;
     token: Address | TokenSymbol;
     recipient?: Address;
   };
@@ -54,7 +60,7 @@ if (!depositProcessorUrl) {
 const targetChain = soneium;
 const sourceChains = isTestnet
   ? [baseSepolia, optimismSepolia, arbitrumSepolia]
-  : [mainnet, base, optimism, arbitrum, bsc];
+  : [optimism];
 
 // Token on the target chain
 // const targetToken = isTestnet
@@ -110,10 +116,18 @@ const accountInput: AccountInput = {
   accountParams: {
     factory,
     factoryData,
-    sessionDetails,
+    sessionDetails: {
+      hashesAndChainIds: sessionDetails.hashesAndChainIds.map(
+        ({ chainId, sessionDigest }) => ({
+          chainId: Number(chainId),
+          sessionDigest,
+        }),
+      ),
+      signature: sessionDetails.signature,
+    },
   },
   target: {
-    chain: targetChain.id,
+    chain: `eip155:${targetChain.id}`,
     token: targetToken,
     // Optional: custom recipient address
     // recipient: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",

@@ -9,7 +9,8 @@ const depositProcessorUrl = process.env.DEPOSIT_PROCESSOR_URL;
 if (!depositProcessorUrl) {
   throw new Error("DEPOSIT_PROCESSOR_URL is not set");
 }
-const webhookPublicUrl = process.env.WEBHOOK_PUBLIC_URL;
+const webhookPublicUrl = "https://auckland-via-suspended-entries.trycloudflare.com"
+// process.env.WEBHOOK_PUBLIC_URL;
 if (!webhookPublicUrl) {
   throw new Error("WEBHOOK_PUBLIC_URL is not set");
 }
