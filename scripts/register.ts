@@ -43,6 +43,12 @@ interface AccountInput {
     chain: string;
     token: Address | TokenSymbol;
     recipient?: Address;
+    outputTokenRules?: {
+      match: {
+        symbol: string;
+      };
+      outputToken: Address;
+    }[];
   };
 }
 
@@ -85,17 +91,10 @@ const config: RhinestoneAccountConfig = {
 
 const rhinestone = new RhinestoneSDK({
   apiKey: rhinestoneApiKey,
-  // provider: {
-  //   type: 'custom',
-  //   urls: {
-  //     137: 'https://polygon-mainnet.gateway.tatum.io',
-  //     1868: 'https://soneium.drpc.org',
-  //   },
-  // },
 });
 const account = await rhinestone.createAccount(config);
-const { factory, factoryData } = account.getInitData();
 const address = account.getAddress();
+const { factory, factoryData } = account.getInitData();
 
 console.log(`Account address: ${address}`);
 
@@ -128,9 +127,18 @@ const accountInput: AccountInput = {
   },
   target: {
     chain: `eip155:${targetChain.id}`,
-    token: targetToken,
-    // Optional: custom recipient address
-    // recipient: "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045",
+    token: targetToken, // default target token USDC.E
+    recipient: "0x7306aC7A32eb690232De81a9FFB44Bb346026faB", // This would be main smart account. Important because we can't have deposit account receiving on other end but user's main smart account should.
+    outputTokenRules: [
+        {
+          "match": { "symbol": "USDC" },
+          "outputToken": "0xbA9986D2381edf1DA03B0B9c1f8b00dc4AacC369"
+        },
+        {
+          "match": { "symbol": "ETH" },
+          "outputToken": "0x4200000000000000000000000000000000000006"
+        }
+      ]
   },
 };
 
